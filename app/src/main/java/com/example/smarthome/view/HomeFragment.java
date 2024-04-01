@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
                                     }
                                 });
                             }
-                        } // Đây là nơi dấu ngoặc đơnng } nên được đặt
+                        }
                     });
                 } else {
                     Log.d("Weather", "Error : "+response.code()+" - "+response.message());
@@ -137,7 +137,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
         binding.btnMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

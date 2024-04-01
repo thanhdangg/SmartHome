@@ -9,37 +9,25 @@
     <Switch
         android:id="@+id/switchDenPhongKhach"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="Đèn phòng khách" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/switchQuatPhongKhach"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch 2" />
+        android:layout_height="48dp"
+        android:text="Quạt Phòng Khách" />
 
     <Switch
-        android:id="@+id/switch3"
+        android:id="@+id/switchDenPhongNgu"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch 3" />
+        android:layout_height="48dp"
+        android:text="Đèn phòng ngủ" />
 
     <Switch
-        android:id="@+id/switch4"
+        android:id="@+id/switchQuatPhongNgu"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch 4" />
-
-    <Switch
-        android:id="@+id/switch5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch 5" />
-
-    <Switch
-        android:id="@+id/switch6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Switch 6" />
+        android:layout_height="48dp"
+        android:text="Quat phòng ngủ" />
 
 </LinearLayout>
