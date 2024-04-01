@@ -137,5 +137,16 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        binding.btnMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment selectedFragment = new MeFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
+            }
+        });
     }
 }
