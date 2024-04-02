@@ -1,9 +1,9 @@
 package com.example.smarthome.ui.login;
 
-class LoggedInUserView {
+public class LoggedInUserView {
     private String displayName;
 
-    LoggedInUserView(String displayName) {
+    public LoggedInUserView(String displayName) {
         this.displayName = displayName;
     }
 
