@@ -53,6 +53,12 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.firebase.auth)
 
+    implementation("dev.gustavoavila:java-android-websocket-client:2.0.2")
+    implementation("com.google.android.gms:play-services-auth:19.2.0")
+    implementation("com.google.firebase:firebase-auth:21.0.1")
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
 
 
     testImplementation(libs.junit)

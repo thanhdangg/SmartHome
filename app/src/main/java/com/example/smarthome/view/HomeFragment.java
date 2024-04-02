@@ -83,12 +83,13 @@ public class HomeFragment extends Fragment {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            binding.tvTemp.setText(String.valueOf(weatherResponse.getMain().getTemp()));
-                            binding.tvTempMin.setText(String.valueOf(weatherResponse.getMain().getTempMin()));
-                            binding.tvTempMax.setText(String.valueOf(weatherResponse.getMain().getTempMax()));
-                            binding.tvHumidity.setText(String.valueOf(weatherResponse.getMain().getHumidity()));
-                            binding.tvClouds.setText(String.valueOf(weatherResponse.getClouds().getAll()));
-                            binding.tvCity.setText(weatherResponse.getName());
+                            String temp = String.valueOf(Math.round(weatherResponse.getMain().getTemp()/10)) + "°C";
+                            String humidity = String.valueOf(weatherResponse.getMain().getHumidity()) + "%";
+                            String clouds = String.valueOf(weatherResponse.getClouds().getAll()) + "%";
+
+                            binding.tvTemp.setText(temp);
+                            binding.tvHumidity.setText(humidity);
+                            binding.tvClouds.setText(clouds);
 
                             if (!weatherResponse.getWeather().isEmpty()) {
                                 binding.tvWeatherDescription.setText(weatherResponse.getWeather().get(0).getDescription());

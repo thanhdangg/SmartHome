@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import com.example.smarthome.databinding.FragmentAutomaticBinding;
 
+import dev.gustavoavila.websocketclient.WebSocketClient;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Call;
@@ -18,14 +19,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import com.example.smarthome.R;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class AutomaticFragment extends Fragment {
 
     private FragmentAutomaticBinding binding;
+    private WebSocketClient mWebSocketClient;
+
     public AutomaticFragment() {
 
     }
@@ -44,65 +53,113 @@ public class AutomaticFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        boolean isDenPhongKhachOn = binding.switchDenPhongKhach.isChecked();
-        boolean isQuatPhongKhachOn = binding.switchQuatPhongKhach.isChecked();
-        boolean isDenPhongNguOn = binding.switchDenPhongNgu.isChecked();
-        boolean isQuatPhongNguOn = binding.switchQuatPhongNgu.isChecked();
 
-        if (isDenPhongKhachOn) {
-            Log.d("AutomaticFragment", "Den Phong Khach On ");
-        } else {
-            Log.d("AutomaticFragment", "Den Phong Khach OFF ");
-        }
-        if (isQuatPhongKhachOn) {
-            Log.d("AutomaticFragment", "isQuatPhongKhachOn ");
-        }
-        if (isDenPhongNguOn) {
-            Log.d("AutomaticFragment", "isDenPhongNguOn");
-        }if (isQuatPhongNguOn) {
-            Log.d("AutomaticFragment", "isQuatPhongNguOn");
-        }
 
-        binding.switchDenPhongKhach.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            sendRequestToESP32("denPhongKhach", isChecked);
-        });
+        connectWebSocket();
 
-        binding.switchQuatPhongKhach.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            sendRequestToESP32("quatPhongKhach", isChecked);
-        });
+        binding.switchDen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mWebSocketClient.send("Bat 1");
+                    Toast.makeText(getContext().getApplicationContext(), "Đèn đã bật", Toast.LENGTH_SHORT).show();
 
-        binding.switchDenPhongNgu.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            sendRequestToESP32("denPhongNgu", isChecked);
-        });
-
-        binding.switchQuatPhongNgu.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            sendRequestToESP32("quatPhongNgu", isChecked);
-        });
-
-    }
-    private void sendRequestToESP32(String device, boolean isOn) {
-        String action = isOn ? "on" : "off";
-        String url = "http://192.168.1.100:80/" + device + "?action=" + action;
-
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
-        client.newCall(request).enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    Log.d("ESP32", "Command sent successfully");
                 } else {
-                    Log.d("ESP32", "Failed to send command: " + response.message());
+                    mWebSocketClient.send("Tat 1");
+                    Toast.makeText(getContext().getApplicationContext(), "Đèn đã tắt", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        binding.switchQuat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mWebSocketClient.send("Bat 2");
+                    Toast.makeText(getContext().getApplicationContext(), "Quạt đã bật", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    mWebSocketClient.send("Tat 2");
+                    Toast.makeText(getContext().getApplicationContext(), "Quạt đã tắt", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+        binding.switchTivi.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mWebSocketClient.send("Bat 3");
+                    Toast.makeText(getContext().getApplicationContext(), "Tivi đã bật", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    mWebSocketClient.send("Tat 3");
+                    Toast.makeText(getContext().getApplicationContext(), "Tivi đã tắt", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        binding.switchCua.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mWebSocketClient.send("Bat 4");
+                    Toast.makeText(getContext().getApplicationContext(), "Cửa đang mở", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    mWebSocketClient.send("Tat 4");
+                    Toast.makeText(getContext().getApplicationContext(), "Cửa đang đóng", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
+
+    private void connectWebSocket() {
+        URI uri;
+        try {
+            uri = new URI("wss://silly-fox-89.telebit.io");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        mWebSocketClient = new WebSocketClient(uri) {
+            @Override
+            public void onOpen() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        Toast.makeText(getActivity(), "WebSocket Opened", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onTextReceived(String s) {
+
+            }
+
+            @Override
+            public void onBinaryReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onPingReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onPongReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onException(Exception e) {
+
+            }
+
+            @Override
+            public void onCloseReceived(int i, String s) {
+
+            }
+        };
+        mWebSocketClient.connect();
+    }
+
 }

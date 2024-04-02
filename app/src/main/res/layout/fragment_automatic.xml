@@ -6,28 +6,77 @@
     android:orientation="vertical"
     tools:context=".view.AutomaticFragment">
 
-    <Switch
-        android:id="@+id/switchDenPhongKhach"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="Đèn phòng khách" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Các thiết bị:"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="serif"
+
+        >
+    </TextView>
 
     <Switch
-        android:id="@+id/switchQuatPhongKhach"
+        android:id="@+id/switchDen"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Quạt Phòng Khách" />
+        android:layout_marginLeft="20dp"
+        android:shadowColor="#D3D3D3"
+        android:trackTint="@color/switch_track_tint"
+        android:thumbTint="@color/switch_thumb_tint"
+        android:switchMinWidth="40dp"
+        android:switchPadding="20dp"
+        android:text="Đèn "
+        android:fontFamily="serif"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        />
 
     <Switch
-        android:id="@+id/switchDenPhongNgu"
+        android:id="@+id/switchQuat"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Đèn phòng ngủ" />
+        android:layout_marginLeft="20dp"
+        android:trackTint="@color/switch_track_tint"
+        android:thumbTint="@color/switch_thumb_tint"
+        android:switchMinWidth="40dp"
+        android:switchPadding="20dp"
+        android:text="Quạt"
+        android:fontFamily="serif"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
 
     <Switch
-        android:id="@+id/switchQuatPhongNgu"
+        android:id="@+id/switchTivi"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Quat phòng ngủ" />
+        android:layout_marginLeft="20dp"
+        android:trackTint="@color/switch_track_tint"
+        android:thumbTint="@color/switch_thumb_tint"
+        android:switchMinWidth="40dp"
+        android:switchPadding="20dp"
+        android:text="Tivi"
+        android:fontFamily="serif"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
+
+    <Switch
+        android:id="@+id/switchCua"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:trackTint="@color/switch_track_tint"
+        android:thumbTint="@color/switch_thumb_tint"
+        android:switchMinWidth="40dp"
+        android:switchPadding="20dp"
+        android:text="Cửa"
+        android:fontFamily="serif"
+        android:textSize="16dp"
+        android:textStyle="bold"/>
 
 </LinearLayout>
