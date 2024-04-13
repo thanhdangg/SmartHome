@@ -166,8 +166,32 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
-        
+        binding.tvLivingRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListDeviceFragment deviceListFragment = new ListDeviceFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("room", "Phòng khách");
+                deviceListFragment.setArguments(bundle);
 
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.deviceListContainer, deviceListFragment)
+                        .commit();
+            }
+        });
 
+        binding.tvBedRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListDeviceFragment deviceListFragment = new ListDeviceFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("room", "Phòng ngủ");
+                deviceListFragment.setArguments(bundle);
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.deviceListContainer, deviceListFragment)
+                        .commit();
+            }
+        });
     }
 }

@@ -44,16 +44,31 @@ public class ListDeviceFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentListDeviceBinding.inflate(inflater, container, false);
         binding.rvDevices.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
         List<Device> devices = new ArrayList<>();
-
         devices.add(new Device("light", "Đèn trần", "Xiaomi Yelght", false, "Phòng khách"));
         devices.add(new Device("fan", "Quạt trần", "Xiaomi Fan", false, "Phòng ngủ"));
         devices.add(new Device("tivi", "Smart TV", "Xiaomi", false, "Phòng khách"));
         devices.add(new Device("door", "Cửa chính", "", false, "Phòng khách"));
 
-        DeviceAdapter deviceAdapter = new DeviceAdapter(devices);
-        binding.rvDevices.setAdapter(deviceAdapter);
+        Bundle args = getArguments();
+        String room = args != null ? args.getString("room") : null;
+        if (room == null || room.isEmpty()){
+            DeviceAdapter deviceAdapter = new DeviceAdapter(devices);
+            binding.rvDevices.setAdapter(deviceAdapter);
+        }
+        else {
+            List<Device> devices1 = new ArrayList<>();
+            for (Device device : devices) {
+                if (device.getRoom().equals(room)) {
+                    devices1.add(device);
+                }
+            }
+            DeviceAdapter deviceAdapter = new DeviceAdapter(devices1);
+            binding.rvDevices.setAdapter(deviceAdapter);
+        }
+
+//        DeviceAdapter deviceAdapter = new DeviceAdapter(devices);
+//        binding.rvDevices.setAdapter(deviceAdapter);
         return binding.getRoot();
     }
 }
