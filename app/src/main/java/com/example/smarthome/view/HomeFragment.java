@@ -63,6 +63,14 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ListDeviceFragment deviceListFragment = new ListDeviceFragment();
+        Bundle bundle = new Bundle();
+        deviceListFragment.setArguments(bundle);
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.deviceListContainer, deviceListFragment)
+                .commit();
+
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder()
@@ -148,5 +156,18 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
+        binding.tvAllDevices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListDeviceFragment deviceListFragment = new ListDeviceFragment();
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.deviceListContainer, deviceListFragment)
+                        .commit();
+            }
+        });
+        
+
+
     }
 }

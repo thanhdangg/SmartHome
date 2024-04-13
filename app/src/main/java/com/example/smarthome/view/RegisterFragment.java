@@ -120,19 +120,14 @@ public class RegisterFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
-                // Google Sign In failed, update UI appropriately
                 Log.w("Register", "Google sign in failed", e);
-//                // [START_EXCLUDE]
-//                updateUiWithUser(null);
-//                // [END_EXCLUDE]
+
             }
         }
     }
@@ -144,13 +139,10 @@ public class RegisterFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUiWithUser(new LoggedInUserView(user.getDisplayName()));
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
                             getActivity().finish();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w("Register", "signInWithCredential:failure", task.getException());
                         }
                     }

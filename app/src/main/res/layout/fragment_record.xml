@@ -1,17 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
     tools:context=".view.RecordFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Đây là trang record"
-        android:fontFamily="serif"
-        android:textSize="16dp"
-        android:textStyle="bold"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:src="@drawable/microphone"
+        app:tint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.823"
+        android:backgroundTint="#FF0000"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/txtListening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Đang nghe. . ."
+        android:textColor="#000000"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.078">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/txtResult"
+        android:layout_width="270dp"
+        android:layout_height="46dp"
+        android:text="Bật đèn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.235"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:fontFamily="serif"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:id="@+id/txtTryAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Nhấn vào micro để thử lại"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="16dp"
+        android:textStyle="italic"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.919">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/imgRecord"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/recoding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintStart_toEndOf="@+id/btnRecord"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.819">
+
+    </ImageView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

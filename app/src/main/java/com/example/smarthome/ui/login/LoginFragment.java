@@ -47,8 +47,6 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
