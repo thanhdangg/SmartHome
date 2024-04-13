@@ -193,5 +193,7 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
+
+
     }
 }

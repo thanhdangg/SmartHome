@@ -124,7 +124,6 @@ public class AutomaticFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        Toast.makeText(getActivity(), "WebSocket Opened", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

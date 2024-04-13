@@ -45,10 +45,10 @@ public class ListDeviceFragment extends Fragment {
         binding = FragmentListDeviceBinding.inflate(inflater, container, false);
         binding.rvDevices.setLayoutManager(new GridLayoutManager(getContext(), 2));
         List<Device> devices = new ArrayList<>();
-        devices.add(new Device("light", "Đèn trần", "Xiaomi Yelght", false, "Phòng khách"));
-        devices.add(new Device("fan", "Quạt trần", "Xiaomi Fan", false, "Phòng ngủ"));
-        devices.add(new Device("tivi", "Smart TV", "Xiaomi", false, "Phòng khách"));
-        devices.add(new Device("door", "Cửa chính", "", false, "Phòng khách"));
+        devices.add(new Device(1, "light", "Đèn trần", "Xiaomi Yelght", false, "Phòng khách"));
+        devices.add(new Device(2, "fan", "Quạt trần", "Xiaomi Fan", false, "Phòng ngủ"));
+        devices.add(new Device(3, "tivi", "Smart TV", "Xiaomi", false, "Phòng khách"));
+        devices.add(new Device(4, "door", "Cửa chính", "", false, "Phòng khách"));
 
         Bundle args = getArguments();
         String room = args != null ? args.getString("room") : null;
@@ -67,8 +67,6 @@ public class ListDeviceFragment extends Fragment {
             binding.rvDevices.setAdapter(deviceAdapter);
         }
 
-//        DeviceAdapter deviceAdapter = new DeviceAdapter(devices);
-//        binding.rvDevices.setAdapter(deviceAdapter);
         return binding.getRoot();
     }
 }
