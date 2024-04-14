@@ -12,4 +12,17 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="default_web_client_id">21456792445-e5e2ctqefrjldohrl49i0cgkdkcas195.apps.googleusercontent.com</string>
+
+    <string-array name="device_types">
+        <item>Đèn trần</item>
+        <item>Quạt trần</item>
+        <item>Cửa chính</item>
+        <item>Smart TV</item>
+    </string-array>
+
+    <string-array name="rooms">
+        <item>Phòng khách</item>
+        <item>Phòng bếp</item>
+        <item>Phòng ngủ</item>
+    </string-array>
 </resources>

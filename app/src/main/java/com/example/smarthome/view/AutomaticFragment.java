@@ -57,6 +57,12 @@ public class AutomaticFragment extends Fragment {
 
         connectWebSocket();
 
+        // Set up listeners for each switch
+        setupSwitchListener(binding.switchDen, 1);
+        setupSwitchListener(binding.switchQuat, 2);
+        setupSwitchListener(binding.switchTivi, 3);
+        setupSwitchListener(binding.switchCua, 4);
+
         binding.switchDen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -108,6 +114,19 @@ public class AutomaticFragment extends Fragment {
         });
 
     }
+    private void setupSwitchListener(Switch switchView, int deviceId) {
+        switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    mWebSocketClient.send("Bat " + deviceId);
+                    Toast.makeText(getContext().getApplicationContext(), "Thiết bị " + deviceId + " đã bật", Toast.LENGTH_SHORT).show();
+                } else {
+                    mWebSocketClient.send("Tat " + deviceId);
+                    Toast.makeText(getContext().getApplicationContext(), "Thiết bị " + deviceId + " đã tắt", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
     private void connectWebSocket() {
         URI uri;
@@ -130,7 +149,7 @@ public class AutomaticFragment extends Fragment {
 
             @Override
             public void onTextReceived(String s) {
-
+                updateSwitchStatus(s);
             }
 
             @Override
@@ -159,6 +178,34 @@ public class AutomaticFragment extends Fragment {
             }
         };
         mWebSocketClient.connect();
+    }
+    private void updateSwitchStatus(String message) {
+        // Parse message to get device ID and status
+        // Example: if message is "Bat 1" or "Tat 1", ID is 1 and status is corresponding
+        String[] parts = message.split(" ");
+        String command = parts[0];
+        int id = Integer.parseInt(parts[1]);
+        boolean status = command.equals("Bat");
+
+        // Find the corresponding switch and update its status
+        Switch switchView;
+        switch (id) {
+            case 1:
+                switchView = binding.switchDen;
+                break;
+            case 2:
+                switchView = binding.switchQuat;
+                break;
+            case 3:
+                switchView = binding.switchTivi;
+                break;
+            case 4:
+                switchView = binding.switchCua;
+                break;
+            default:
+                return;
+        }
+        switchView.setChecked(status);
     }
 
 }

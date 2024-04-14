@@ -24,7 +24,8 @@
                 android:id="@+id/ivDeviceIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center"
                 android:src="@drawable/light"
                 android:contentDescription="device_icon"/>
@@ -48,7 +49,8 @@
             android:text="Đèn trần"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="serif"
             />
 
         <TextView
@@ -57,7 +59,9 @@
             android:layout_height="wrap_content"
             android:text="Phongf khách"
             android:textSize="16sp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="serif"
             />
 
     </LinearLayout>

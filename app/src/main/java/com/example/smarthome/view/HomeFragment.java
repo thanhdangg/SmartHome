@@ -133,19 +133,7 @@ public class HomeFragment extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, rooms);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        binding.spinnerRooms.setAdapter(adapter);
 
-        binding.spinnerRooms.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedRoom = (String) parent.getItemAtPosition(position);
-                Toast.makeText(getActivity(), selectedRoom, Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         binding.btnMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,6 +154,7 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
+        binding.tvAllDevices.setBackgroundResource(R.drawable.textview_background);
         binding.tvLivingRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,7 +168,7 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
-
+        binding.tvLivingRoom.setBackgroundResource(R.drawable.textview_background);
         binding.tvBedRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,6 +179,33 @@ public class HomeFragment extends Fragment {
 
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.deviceListContainer, deviceListFragment)
+                        .commit();
+            }
+        });
+        binding.tvBedRoom.setBackgroundResource(R.drawable.textview_background);
+
+
+        binding.tvKitchen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListDeviceFragment deviceListFragment = new ListDeviceFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("room", "Phòng Bếp");
+                deviceListFragment.setArguments(bundle);
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.deviceListContainer, deviceListFragment)
+                        .commit();
+            }
+        });
+        binding.tvKitchen.setBackgroundResource(R.drawable.textview_background);
+
+        binding.btnAddDevice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddDeviceFragment addDeviceFragment = new AddDeviceFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, addDeviceFragment)
                         .commit();
             }
         });

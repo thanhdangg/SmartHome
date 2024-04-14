@@ -15,26 +15,31 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:elevation="10dp"
         >
-        <Spinner
-            android:id="@+id/spinnerRooms"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:fontFamily="serif"
-            android:background="@drawable/rounded_corners"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btnMe"
+        <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:elevation="0dp"
-            android:layout_gravity="top|end"
-            android:layout_marginLeft="120dp"
-            app:backgroundTint="#FFFFFF"
-            app:rippleColor="@color/white"
-            app:srcCompat="@drawable/baseline_account_circle_24"
-            app:tint="#00BFFF" />
+            android:text="Home"
+            android:layout_weight="1"
+            android:textColor="#000000"
+            android:padding="10dp"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="serif"
+            />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/btnMe"
+            android:layout_marginRight="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/profile"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            />
+
 
     </LinearLayout>
 
@@ -42,9 +47,10 @@
         android:id="@+id/infoLayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="@drawable/mayvanang"
+        android:background="@drawable/circle_image"
         android:orientation="vertical"
         android:padding="16dp"
+        android:layout_margin="10dp"
         >
 
         <LinearLayout
@@ -149,107 +155,101 @@
 
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/tvAllDevices"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tất cả thiết bị"
-                android:fontFamily="serif"
-                android:layout_margin="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:clickable="true"
-                />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvLivingRoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phòng khách"
-                android:fontFamily="serif"
-                android:layout_margin="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:clickable="true"
+                <TextView
+                    android:id="@+id/tvAllDevices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tất cả thiết bị"
+                    android:fontFamily="serif"
+                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    />
 
-                />
+                <TextView
+                    android:id="@+id/tvLivingRoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phòng khách"
+                    android:fontFamily="serif"
+                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:clickable="true"
 
-            <TextView
-                android:id="@+id/tvBedRoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phòng ngủ"
-                android:fontFamily="serif"
-                android:layout_margin="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:clickable="true"
+                    />
 
+                <TextView
+                    android:id="@+id/tvBedRoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phòng ngủ"
+                    android:fontFamily="serif"
+                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    />
 
-                />
+                <TextView
+                    android:id="@+id/tvKitchen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phòng bếp"
+                    android:fontFamily="serif"
+                    android:layout_margin="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    />
+            </LinearLayout>
+        </HorizontalScrollView>
 
-            <TextView
-                android:id="@+id/tvKitchen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phòng bếp"
-                android:fontFamily="serif"
-                android:layout_margin="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:clickable="true"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/btnAddDevice"
+            android:layout_marginRight="20dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/add"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            />
 
-
-                />
-
-            <TextView
-                android:id="@+id/tvBathRoom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phòng tắm"
-                android:fontFamily="serif"
-                android:layout_margin="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:clickable="true"
-
-                />
-
-        </LinearLayout>
-
-    </HorizontalScrollView>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/deviceListContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        />
-
+        android:layout_weight="1" />
 
 
 </LinearLayout>
