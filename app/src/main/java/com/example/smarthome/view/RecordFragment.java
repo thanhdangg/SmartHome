@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Path;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 
@@ -15,6 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import android.util.Base64;
 import android.util.Log;
 import android.content.Intent;
 import android.speech.RecognizerIntent;
@@ -22,16 +25,21 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.os.Handler;
 
 import android.Manifest;
 import com.example.smarthome.R;
 import com.example.smarthome.databinding.FragmentRecordBinding;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+
+import okhttp3.*;
 import okio.ByteString;
 import okio.Okio;
 import okio.Source;
@@ -46,6 +54,10 @@ public class RecordFragment extends Fragment {
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static final int RESULT_OK = 1;
     private boolean isRecording = false;
+    private final OkHttpClient httpClient = new OkHttpClient();
+
+    private MediaPlayer player = null;
+
 
 
 
@@ -74,36 +86,37 @@ public class RecordFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = FragmentRecordBinding.inflate(inflater, container, false);
 
-        binding.btnRecord.setOnTouchListener(new View.OnTouchListener() {
+        binding.btnRecord.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    startRecording();
-                    binding.txtListening.setText("Đang nghe. . .");
-                    binding.btnRecord.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
-                    binding.imgRecord.setVisibility(View.VISIBLE);
-                    binding.txtTryAgain.setVisibility(View.INVISIBLE);
-
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    stopRecording();
-                    binding.txtListening.setText("Thử lại");
-                    binding.btnRecord.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#D3D3D3")));
-                    binding.imgRecord.setVisibility(View.INVISIBLE);
-                    binding.txtTryAgain.setVisibility(View.VISIBLE);
-                }
-                return false;
-            }
-        });
-        binding.btnRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 startRecording();
                 binding.txtListening.setText("Đang nghe. . .");
                 binding.btnRecord.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
                 binding.imgRecord.setVisibility(View.VISIBLE);
                 binding.txtTryAgain.setVisibility(View.INVISIBLE);
+                return true; // return true to indicate that the event is consumed
             }
         });
+
+        binding.btnRecord.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    stopRecording();
+                    binding.txtListening.setText("Thử lại");
+                    binding.btnRecord.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
+                    binding.imgRecord.setVisibility(View.INVISIBLE);
+                    binding.txtTryAgain.setVisibility(View.VISIBLE);
+                }
+                return false; // return false to let the event propagate to the long click listener
+            }
+        });
+        binding.btnRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
         return binding.getRoot();
     }
 
@@ -133,57 +146,106 @@ public class RecordFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     private void startRecording() {
-        recorder = new MediaRecorder();
-        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        fileName = getActivity().getExternalCacheDir().getAbsolutePath();
-        fileName += "/audiorecordtest.3gp";
-        recorder.setOutputFile(fileName);
-        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
         try {
+            recorder = new MediaRecorder();
+            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+            fileName = getActivity().getExternalCacheDir().getAbsolutePath();
+            fileName += "/audiorecordtest.wav";
+            recorder.setOutputFile(fileName);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
             recorder.prepare();
+            recorder.start();
+            isRecording = true;
         } catch (IOException e) {
-            Log.e("Recording", "prepare() failed");
+            Log.e("Recording", "prepare() failed", e);
         }
-        recorder.start();
-        isRecording = true;
-
     }
 
     private void stopRecording() {
-        if (isRecording) {
-            recorder.stop();
+        if (isRecording && recorder != null) {
+            try {
+                recorder.stop();
+            } catch (RuntimeException e) {
+                Log.e("Recording", "stop() failed", e);
+            }
             recorder.release();
             recorder = null;
             isRecording = false;
         }
-        try (Source source = Okio.source(new File(fileName))) {
-            ByteString byteString = Okio.buffer(source).readByteString();
-            String result = byteString.utf8();
-            binding.txtResult.setText(result);
-            binding.txtResult.setVisibility(View.VISIBLE);
-        } catch (IOException e) {
-            Log.e("Recording", "Failed to read audio file", e);
-        }
+        if (fileName != null) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    player = new MediaPlayer();
+                    try {
+                        player.setDataSource(fileName);
+                        player.prepare();
+                        player.start();
+                    } catch (IOException e) {
+                        Log.e("Playback", "prepare() failed", e);
+                    }
+                }
+            }, 1000);
 
+            File file = new File(fileName);
+            if (file.exists()) {
+                try {
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("audio/wav"), file);
+                    MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                    MultipartBody multipartBody = new MultipartBody.Builder()
+                            .setType(MultipartBody.FORM)
+                            .addPart(filePart)
+                            .build();
+                    Request request = new Request.Builder()
+                            .url("https://8392-2402-9d80-405-1445-f843-272c-40ff-7295.ngrok-free.app/upload")
+                            .post(multipartBody)
+                            .build();
+                    httpClient.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.e("Recording", "POST request failed", e);
+                        }
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (response.isSuccessful()) {
+                                final String myResponse = response.body().string();
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        binding.txtResult.setText(myResponse);
+                                        binding.txtResult.setVisibility(View.VISIBLE);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    Log.e("Recording", "Failed to encode audio file", e);
+                }
 
-        File file = new File(fileName);
-        if (file.delete()) {
-            Log.d("Recording", "Audio file deleted successfully");
+//                if (file.delete()) {
+//                    Log.d("Recording", "Audio file deleted successfully");
+//                } else {
+//                    Log.e("Recording", "Failed to delete audio file");
+//                }
+            } else {
+                Log.e("Recording", "Audio file does not exist");
+            }
         } else {
-            Log.e("Recording", "Failed to delete audio file");
+            Log.e("Recording", "File name is null");
         }
-
-        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "vi-VN");
-        startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
-
-
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (player != null) {
+            player.release();
+            player = null;
+        }
     }
 }
