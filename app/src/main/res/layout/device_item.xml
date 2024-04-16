@@ -18,14 +18,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/ivDeviceIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 android:src="@drawable/light"
                 android:contentDescription="device_icon"/>
@@ -34,9 +36,12 @@
                 android:id="@+id/swDeviceStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
                 android:trackTint="@color/switch_track_tint"
                 android:thumbTint="@color/switch_thumb_tint"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
                 >
             </Switch>
 

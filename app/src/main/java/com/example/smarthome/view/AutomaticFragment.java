@@ -34,6 +34,8 @@ public class AutomaticFragment extends Fragment {
 
     private FragmentAutomaticBinding binding;
     private WebSocketClient mWebSocketClient;
+    private boolean isAutoLightOn = false;
+
 
     public AutomaticFragment() {
 
@@ -112,7 +114,45 @@ public class AutomaticFragment extends Fragment {
                 }
             }
         });
+        binding.lnTurnOnLightWhenOpenDoor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isAutoLightOn = true;
+                Toast.makeText(getContext().getApplicationContext(), "Đã cài đặt, đèn sẽ bật khi cửa mở", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+
+        binding.lnTunrnOnAllLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWebSocketClient.send("Bat 1");
+                binding.switchDen.setChecked(true);
+//                mWebSocketClient.send("Bat 2");
+//                mWebSocketClient.send("Bat 3");
+//                mWebSocketClient.send("Bat 4");
+                Toast.makeText(getContext().getApplicationContext(), "Đã bật tất cả đèn", Toast.LENGTH_SHORT).show();
+            }
+        });
+        binding.lnTurnOffAllLight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWebSocketClient.send("Tat 1");
+                binding.switchDen.setChecked(false);
+
+//                mWebSocketClient.send("Tat 2");
+//                mWebSocketClient.send("Tat 3");
+//                mWebSocketClient.send("Tat 4");
+                Toast.makeText(getContext().getApplicationContext(), "Đã tắt tất cả đèn", Toast.LENGTH_SHORT).show();
+            }
+        });
+        binding.lnTurnOnLightWhenMove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                mWebSocketClient.send("Bat 1");
+                Toast.makeText(getContext().getApplicationContext(), "Đã cài đặt, sẽ bật đèn khi có chuyển động", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     private void setupSwitchListener(Switch switchView, int deviceId) {
         switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -186,6 +226,12 @@ public class AutomaticFragment extends Fragment {
         String command = parts[0];
         int id = Integer.parseInt(parts[1]);
         boolean status = command.equals("Bat");
+
+        if (isAutoLightOn && id == 4 && status) {
+            binding.switchDen.setChecked(true);
+            mWebSocketClient.send("Bat 1");
+            binding.switchDen.setChecked(true);
+        }
 
         // Find the corresponding switch and update its status
         Switch switchView;

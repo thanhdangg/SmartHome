@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,74 +10,353 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Các thiết bị:"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
+        android:text="Tạo ngữ cảnh thông minh"
         android:textStyle="bold"
+        android:textSize="20dp"
         android:textColor="@color/black"
-        android:layout_marginBottom="20dp"
         android:fontFamily="serif"
-
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         >
     </TextView>
 
-    <Switch
-        android:id="@+id/switchDen"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
+    <LinearLayout
+        android:id="@+id/lnLichTrinh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_marginLeft="20dp"
-        android:shadowColor="#D3D3D3"
-        android:trackTint="@color/switch_track_tint"
-        android:thumbTint="@color/switch_thumb_tint"
-        android:switchMinWidth="40dp"
-        android:switchPadding="20dp"
-        android:text="Đèn "
-        android:fontFamily="serif"
-        android:textSize="16dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/circle"
+        android:elevation="10dp"
+        android:padding="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/clock">
+            </ImageView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lịch trình"
+                    android:textSize="18dp"
+                    android:textAlignment="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="serif"
+                    android:textStyle="bold">
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ví dụ: Vào 7h mỗi buổi sáng..."
+                    android:textSize="16dp"
+                    android:textAlignment="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="serif"
+                    >
+                </TextView>
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/next">
+
+            </ImageView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnStatusChange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="7dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/circle"
+        android:elevation="10dp"
+        android:padding="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/change">
+            </ImageView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Khi trạng thái thay đổi"
+                    android:textSize="18dp"
+                    android:textAlignment="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="serif"
+                    android:textStyle="bold">
+                </TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ví dụ: Khi cửa được mở thì..."
+                    android:textSize="16dp"
+                    android:textAlignment="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="serif"
+                    >
+                </TextView>
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/next">
+
+            </ImageView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đề xuất:"
         android:textStyle="bold"
-        />
-
-    <Switch
-        android:id="@+id/switchQuat"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginLeft="20dp"
-        android:trackTint="@color/switch_track_tint"
-        android:thumbTint="@color/switch_thumb_tint"
-        android:switchMinWidth="40dp"
-        android:switchPadding="20dp"
-        android:text="Quạt"
+        android:textColor="@color/black"
+        android:textSize="20dp"
         android:fontFamily="serif"
-        android:textSize="16dp"
-        android:textStyle="bold"/>
-
-    <Switch
-        android:id="@+id/switchTivi"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
         android:layout_marginLeft="20dp"
-        android:trackTint="@color/switch_track_tint"
-        android:thumbTint="@color/switch_thumb_tint"
-        android:switchMinWidth="40dp"
-        android:switchPadding="20dp"
-        android:text="Tivi"
-        android:fontFamily="serif"
-        android:textSize="16dp"
-        android:textStyle="bold"/>
+        android:layout_marginTop="30dp"
+        >
+    </TextView>
 
-    <Switch
-        android:id="@+id/switchCua"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginLeft="20dp"
-        android:trackTint="@color/switch_track_tint"
-        android:thumbTint="@color/switch_thumb_tint"
-        android:switchMinWidth="40dp"
-        android:switchPadding="20dp"
-        android:text="Cửa"
-        android:fontFamily="serif"
-        android:textSize="16dp"
-        android:textStyle="bold"/>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/lnTurnOnLightWhenOpenDoor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/opendoor"
+                android:elevation="10dp"
+                android:padding="10dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bật đèn khi cửa mở"
+                    android:textSize="18dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="200dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="serif"
+                    android:textStyle="bold">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnTunrnOnAllLight"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/turnon"
+                android:elevation="10dp"
+                android:padding="10dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bật tất cả đèn"
+                    android:textSize="18dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="200dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="serif"
+                    android:textStyle="bold">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnTurnOffAllLight"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/turnoff"
+                android:elevation="10dp"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="200dp"
+                    android:fontFamily="serif"
+                    android:text="Tắt tất cả đèn"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnTurnOnLightWhenMove"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/move"
+                android:elevation="10dp"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="210dp"
+                    android:fontFamily="serif"
+                    android:text="Bật đèn khi có chuyển động"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/switchDen"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:shadowColor="#D3D3D3"
+                android:trackTint="@color/switch_track_tint"
+                android:thumbTint="@color/switch_thumb_tint"
+                android:switchMinWidth="40dp"
+                android:switchPadding="20dp"
+                android:text="Đèn "
+                android:fontFamily="serif"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                />
+            <Switch
+                android:id="@+id/switchQuat"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:trackTint="@color/switch_track_tint"
+                android:thumbTint="@color/switch_thumb_tint"
+                android:switchMinWidth="40dp"
+                android:switchPadding="20dp"
+                android:text="Quạt"
+                android:fontFamily="serif"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+            <Switch
+                android:id="@+id/switchTivi"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:trackTint="@color/switch_track_tint"
+                android:thumbTint="@color/switch_thumb_tint"
+                android:switchMinWidth="40dp"
+                android:switchPadding="20dp"
+                android:text="Tivi"
+                android:fontFamily="serif"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+            <Switch
+                android:id="@+id/switchCua"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginLeft="20dp"
+                android:trackTint="@color/switch_track_tint"
+                android:thumbTint="@color/switch_thumb_tint"
+                android:switchMinWidth="40dp"
+                android:switchPadding="20dp"
+                android:text="Cửa"
+                android:fontFamily="serif"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

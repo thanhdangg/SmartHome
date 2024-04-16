@@ -190,7 +190,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 ListDeviceFragment deviceListFragment = new ListDeviceFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("room", "Phòng Bếp");
+                bundle.putString("room", "Phòng bếp");
                 deviceListFragment.setArguments(bundle);
 
                 getActivity().getSupportFragmentManager().beginTransaction()

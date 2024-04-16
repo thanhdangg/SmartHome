@@ -97,6 +97,8 @@ public class AddDeviceFragment extends Fragment {
         binding.btnAddDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String deviceType = binding.spinnerType.getSelectedItem().toString();
+                String deviceName = binding.spinnerRoom.getSelectedItem().toString();
 
             }
         });

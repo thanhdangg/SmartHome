@@ -49,6 +49,7 @@ public class ListDeviceFragment extends Fragment {
         devices.add(new Device(2, "fan", "Quạt trần", "Xiaomi Fan", false, "Phòng ngủ"));
         devices.add(new Device(3, "tivi", "Smart TV", "Xiaomi", false, "Phòng khách"));
         devices.add(new Device(4, "door", "Cửa chính", "", false, "Phòng khách"));
+        devices.add(new Device(5, "kitchen", "Máy khử mùi", "Xiaomi Yelght", false, "Phòng bếp"));
 
         Bundle args = getArguments();
         String room = args != null ? args.getString("room") : null;
