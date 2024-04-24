@@ -4,6 +4,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgroundhome"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -26,9 +27,12 @@
         android:textSize="16dp"
         android:textStyle="bold"
         android:fitsSystemWindows="false"
-        app:itemIconTint="@null"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#70000000"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

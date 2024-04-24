@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:backgroundTint="#FFFFFF"
     tools:context=".view.RecordFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -66,7 +64,7 @@
         android:fontFamily="serif"
         android:text="Nhấn vào micro để thử lại"
         android:textAlignment="center"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="16dp"
         android:textStyle="italic"
         android:visibility="invisible"

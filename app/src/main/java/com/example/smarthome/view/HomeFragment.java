@@ -154,7 +154,6 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
-        binding.tvAllDevices.setBackgroundResource(R.drawable.textview_background);
         binding.tvLivingRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +167,6 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
-        binding.tvLivingRoom.setBackgroundResource(R.drawable.textview_background);
         binding.tvBedRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,7 +180,6 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
-        binding.tvBedRoom.setBackgroundResource(R.drawable.textview_background);
 
 
         binding.tvKitchen.setOnClickListener(new View.OnClickListener() {
@@ -198,7 +195,6 @@ public class HomeFragment extends Fragment {
                         .commit();
             }
         });
-        binding.tvKitchen.setBackgroundResource(R.drawable.textview_background);
 
         binding.btnAddDevice.setOnClickListener(new View.OnClickListener() {
             @Override
