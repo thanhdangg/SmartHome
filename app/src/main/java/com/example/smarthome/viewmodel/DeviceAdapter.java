@@ -69,6 +69,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
         Device device = devices.get(position);
         holder.binding.ivDeviceIcon.setImageResource(holder.itemView.getContext().getResources().getIdentifier(device.getIconPath(), "drawable", holder.itemView.getContext().getPackageName()));
         holder.binding.tvDeviceName.setText(device.getName());
+        holder.binding.swDeviceStatus.setOnCheckedChangeListener(null); // Remove existing listener
         holder.binding.swDeviceStatus.setChecked(device.getStatus());
         holder.binding.tvDeviceRoom.setText(device.getRoom());
 

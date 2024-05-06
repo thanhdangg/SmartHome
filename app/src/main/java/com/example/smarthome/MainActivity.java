@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        Log.d("WebSocketClient", "Kết nối WebSocket thành công" + webSocketUrl);
                         WebSocketManager.getInstance().setWebSocketClient(mWebSocketClient);
                     }
                 });

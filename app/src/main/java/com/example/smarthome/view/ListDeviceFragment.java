@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,13 +14,7 @@ import com.example.smarthome.databinding.FragmentListDeviceBinding;
 import com.example.smarthome.model.Device;
 import com.example.smarthome.viewmodel.DeviceAdapter;
 import com.example.smarthome.viewmodel.DeviceStatusUpdater;
-import com.example.smarthome.viewmodel.WebSocketManager;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +34,7 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
     public ListDeviceFragment() {
     }
 
-    public static ListDeviceFragment newInstance(String param1, String param2) {
+    public static ListDeviceFragment newInstance() {
         ListDeviceFragment fragment = new ListDeviceFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -74,34 +67,30 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
             public void onResponse(Call<WebSocketUrlResponse> call, Response<WebSocketUrlResponse> response) {
                 if (response.isSuccessful()) {
                     webSocketUrl = response.body().getWssUrl();
-                    Log.d("DeviceAdapter", "WebSocket URL: " + webSocketUrl);
-                    deviceAdapter = new DeviceAdapter(devices, getContext(), webSocketUrl);  // Change this line
+
+                    Bundle args = getArguments();
+                    String room = args != null ? args.getString("room") : null;
+                    if (room == null || room.isEmpty()){
+                        deviceAdapter = new DeviceAdapter(devices, getContext(), webSocketUrl);
+                    }
+                    else {
+                        List<Device> devices1 = new ArrayList<>();
+                        for (Device device : devices) {
+                            if (device.getRoom().equals(room)) {
+                                devices1.add(device);
+                            }
+                        }
+                        deviceAdapter = new DeviceAdapter(devices1, getContext(), webSocketUrl);
+                    }
                     binding.rvDevices.setAdapter(deviceAdapter);
                 }
             }
 
             @Override
             public void onFailure(Call<WebSocketUrlResponse> call, Throwable t) {
-                Log.e("DeviceAdapter", "Failed to get WebSocket URL: " + t.getMessage());
+                Log.e("WebSocketClient", "Failed to get WebSocket URL: " + t.getMessage());
             }
         });
-
-        Bundle args = getArguments();
-        String room = args != null ? args.getString("room") : null;
-        if (room == null || room.isEmpty()){
-            deviceAdapter = new DeviceAdapter(devices, getContext(), webSocketUrl);
-            binding.rvDevices.setAdapter(deviceAdapter);
-        }
-        else {
-            List<Device> devices1 = new ArrayList<>();
-            for (Device device : devices) {
-                if (device.getRoom().equals(room)) {
-                    devices1.add(device);
-                }
-            }
-            DeviceAdapter deviceAdapter = new DeviceAdapter(devices1);
-            binding.rvDevices.setAdapter(deviceAdapter);
-        }
 
         return binding.getRoot();
     }

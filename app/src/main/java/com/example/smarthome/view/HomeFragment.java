@@ -20,6 +20,7 @@ import com.example.smarthome.databinding.FragmentHomeBinding;
 
 import com.example.smarthome.model.OpenWeatherMapService;
 import com.example.smarthome.model.WeatherResponse;
+import com.example.smarthome.viewmodel.DeviceStatusUpdater;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -32,12 +33,12 @@ import retrofit2.Call;
 
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements DeviceStatusUpdater {
 
     private FragmentHomeBinding binding;
     private Retrofit retrofit;
     private String[] rooms = {"My Home", "Office"};
-
+    private ListDeviceFragment listDeviceFragment;
     public HomeFragment() {
     }
 
@@ -57,6 +58,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        listDeviceFragment = ListDeviceFragment.newInstance();
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.deviceListContainer, listDeviceFragment)
+                .commit();
         return binding.getRoot();
     }
     @Override
@@ -207,5 +212,11 @@ public class HomeFragment extends Fragment {
         });
 
 
+    }
+    @Override
+    public void updateDeviceStatus(String message) {
+        if (listDeviceFragment != null) {
+            listDeviceFragment.updateDeviceStatus(message);
+        }
     }
 }
