@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ScheduleFragment"
+    android:orientation="vertical"
+    android:padding="16dp"
+    >
+
+    <Spinner
+        android:id="@+id/spinner_device_name"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:prompt="@string/select_device"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:focusable="true"
+        />
+
+    <Spinner
+        android:id="@+id/spinner_device_room"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:prompt="@string/select_room"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:focusable="true"
+        />
+
+    <TimePicker
+        android:id="@+id/time_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:focusable="true"
+        style="@style/CustomTimePickerTheme"
+
+        />
+
+    <Button
+        android:id="@+id/btn_set_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/set_schedule"
+        android:backgroundTint="#00BFFF"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="#FFFFFF"
+        android:textAlignment="center"
+        android:focusable="true"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:fontFamily="serif"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/schedule_list"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="serif"
+        android:layout_marginStart="20dp"
+        >
+    </TextView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</LinearLayout>

@@ -67,6 +67,10 @@
     <string name="prompt_remember_me">Tôi đồng ý với CHÍNH SÁCH QUYỀN RIÊNG TƯ VÀ THOẢ THUẬN NGƯỜI DÙNG</string>
     <string name="prompt_or">Hoặc đăng ký bằng</string>
     <string name="register">Đăng ký</string>
+    <string name="select_device">Chọn Thiết bị</string>
+    <string name="select_room">Chọn phòng</string>
+    <string name="set_schedule">LƯU</string>
+    <string name="schedule_list">Danh sách thiết bị đã lên lịch</string>
 
     <string-array name="device_types">
         <item>Đèn trần</item>

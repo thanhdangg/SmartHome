@@ -85,6 +85,16 @@ public class AutomaticFragment extends Fragment {
                 Toast.makeText(getContext().getApplicationContext(), "Đã cài đặt, sẽ bật đèn khi có chuyển động", Toast.LENGTH_SHORT).show();
             }
         });
+        binding.lnLichTrinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScheduleFragment scheduleFragment = new ScheduleFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, scheduleFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 
 
