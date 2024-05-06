@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import com.example.smarthome.databinding.FragmentListDeviceBinding;
 import com.example.smarthome.model.Device;
 import com.example.smarthome.viewmodel.DeviceAdapter;
+import com.example.smarthome.viewmodel.DeviceStatusUpdater;
+import com.example.smarthome.viewmodel.WebSocketManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,11 +30,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ListDeviceFragment extends Fragment {
+public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater {
 
     private FragmentListDeviceBinding binding;
     private WebSocketUrlProvider webSocketUrlProvider;
     String webSocketUrl = "";
+    private DeviceAdapter deviceAdapter;
+
 
     public ListDeviceFragment() {
     }
@@ -71,7 +75,7 @@ public class ListDeviceFragment extends Fragment {
                 if (response.isSuccessful()) {
                     webSocketUrl = response.body().getWssUrl();
                     Log.d("DeviceAdapter", "WebSocket URL: " + webSocketUrl);
-                    DeviceAdapter deviceAdapter = new DeviceAdapter(devices, getContext(), webSocketUrl);
+                    deviceAdapter = new DeviceAdapter(devices, getContext(), webSocketUrl);  // Change this line
                     binding.rvDevices.setAdapter(deviceAdapter);
                 }
             }
@@ -85,12 +89,8 @@ public class ListDeviceFragment extends Fragment {
         Bundle args = getArguments();
         String room = args != null ? args.getString("room") : null;
         if (room == null || room.isEmpty()){
-//            webSocketUrl = getWebSocketUrl();  // Replace this with the actual method to get the WebSocket URL
-//            String webSocketUrl = "wss://ba51-3-25-190-4.ngrok-free.app";
-
-            DeviceAdapter deviceAdapter = new DeviceAdapter(devices, getContext(), webSocketUrl);
+            deviceAdapter = new DeviceAdapter(devices, getContext(), webSocketUrl);
             binding.rvDevices.setAdapter(deviceAdapter);
-//            binding.rvDevices.setAdapter(deviceAdapter);
         }
         else {
             List<Device> devices1 = new ArrayList<>();
@@ -105,40 +105,10 @@ public class ListDeviceFragment extends Fragment {
 
         return binding.getRoot();
     }
-    private static String extractWssValue(String jsonResponse) {
-        int startIndex = jsonResponse.indexOf("\"wss\":") + "\"wss\":".length();
-        int endIndex = jsonResponse.indexOf(",", startIndex);
-        if (endIndex == -1) {
-            endIndex = jsonResponse.indexOf("}", startIndex);
-        }
-        return jsonResponse.substring(startIndex, endIndex);
+    @Override
+    public void updateDeviceStatus(String message) {
+        deviceAdapter.updateDeviceStatus(message);
+
     }
-    private static String getWebSocketUrl(){
-        String url = "http://3.25.190.4:1911/wss";
-        String wssValue = "";
-        try {
-            URL apiUrl = new URL(url);
 
-            HttpURLConnection conn = (HttpURLConnection) apiUrl.openConnection();
-            conn.setRequestMethod("GET");
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuilder response = new StringBuilder();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            conn.disconnect();
-
-            String jsonResponse = response.toString();
-            wssValue = extractWssValue(jsonResponse);
-            Log.d("DeviceAdapter", "WebSocket URL:  Value of 'wss' key: " + wssValue);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return wssValue;
-    }
 }
