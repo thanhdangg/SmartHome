@@ -202,7 +202,7 @@ public class RecordFragment extends Fragment {
                             .addPart(filePart)
                             .build();
                     Request request = new Request.Builder()
-                            .url("https://8392-2402-9d80-405-1445-f843-272c-40ff-7295.ngrok-free.app/upload")
+                            .url("http://3.25.190.4:1911/wss")
                             .post(multipartBody)
                             .build();
                     httpClient.newCall(request).enqueue(new Callback() {

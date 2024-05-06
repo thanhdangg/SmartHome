@@ -24,7 +24,7 @@
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_navigation_menu"
         android:fontFamily="serif"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:fitsSystemWindows="false"
         app:itemIconTint="@color/white"

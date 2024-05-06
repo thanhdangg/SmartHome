@@ -105,4 +105,11 @@ public class AddDeviceFragment extends Fragment {
 
         return binding.getRoot();
     }
+
+    public void scanQRCode(View view) {
+
+    }
+
+    public void addDevice(View view) {
+    }
 }

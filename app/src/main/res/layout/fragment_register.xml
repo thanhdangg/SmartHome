@@ -14,31 +14,33 @@
     <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="184dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_email"
         android:fontFamily="serif"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="emailAddress"
+        />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/prompt_password"
         android:fontFamily="serif"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
@@ -47,12 +49,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:autofillHints="password"/>
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="162dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
@@ -60,10 +63,10 @@
         android:layout_marginBottom="64dp"
         android:backgroundTint="#00BFFF"
         android:enabled="true"
-        android:text="Đăng ký"
+        android:text="@string/register"
         android:fontFamily="serif"
         android:textColor="#FFFFFF"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,8 +93,8 @@
 
     <ImageButton
         android:id="@+id/btnMicrosoft"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@drawable/microsofticon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +102,8 @@
         app:layout_constraintStart_toEndOf="@+id/btnFacebook"
         app:layout_constraintTop_toBottomOf="@+id/btnRegister"
         app:layout_constraintVertical_bias="0.379"
+        android:focusable="true"
+        android:contentDescription="@string/microsoft_button"
         >
 
     </ImageButton>
@@ -107,8 +112,8 @@
 
     <ImageButton
         android:id="@+id/btnGoogle"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@drawable/googleicon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnFacebook"
@@ -117,13 +122,15 @@
         app:layout_constraintTop_toBottomOf="@+id/btnRegister"
         app:layout_constraintVertical_bias="0.379"
         android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@string/google_button"
         >
     </ImageButton>
 
     <ImageButton
         android:id="@+id/btnFacebook"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@drawable/facebook"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -131,6 +138,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnRegister"
         app:layout_constraintVertical_bias="0.379"
+        android:contentDescription="@string/facebook_button"
         >
 
     </ImageButton>
@@ -145,17 +153,18 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569" />
+        app:layout_constraintVertical_bias="0.569"
+        android:contentDescription="@string/app_name"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hoặc đăng ký bằng"
+        android:text="@string/prompt_or"
         android:fontFamily="serif"
         android:textColor="#D3D3D3"
         android:textStyle="bold"
-        android:textSize="18dp"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -167,8 +176,8 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tôi đồng ý với CHÍNH SÁCH QUYỀN RIÊNG TƯ VÀ THOẢ THUẬN NGƯỜI DÙNG"
-        android:textSize="16dp"
+        android:text="@string/prompt_remember_me"
+        android:textSize="16sp"
         android:fontFamily="serif"
         android:textColor="#00BFFF"
         android:textStyle="italic"

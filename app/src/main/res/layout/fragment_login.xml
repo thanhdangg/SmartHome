@@ -14,7 +14,7 @@
     <EditText
         android:id="@+id/username"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="184dp"
         android:layout_marginEnd="24dp"
@@ -25,12 +25,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="name"/>
 
     <EditText
         android:id="@+id/password"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="44dp"
         android:layout_marginEnd="24dp"
@@ -43,22 +44,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:autofillHints="password"
+        />
 
     <Button
         android:id="@+id/login"
         android:layout_width="162dp"
-        android:layout_height="44dp"
+        android:layout_height="48dp"
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="64dp"
         android:enabled="false"
-        android:text="Đăng nhập"
+        android:text="@string/sign_in"
         android:fontFamily="serif"
         android:textColor="#FFFFFF"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:backgroundTint="#00BFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,8 +89,8 @@
 
     <ImageButton
         android:id="@+id/btnFacebook"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@drawable/facebook"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,12 +98,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login"
         app:layout_constraintVertical_bias="0.379"
+        android:contentDescription="@string/facebook_button"
         >
     </ImageButton>
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:id="@+id/btnMicrosoft"
         android:background="@drawable/microsofticon"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -109,12 +113,13 @@
         app:layout_constraintStart_toEndOf="@+id/btnFacebook"
         app:layout_constraintTop_toBottomOf="@+id/login"
         app:layout_constraintVertical_bias="0.379"
+        android:contentDescription="@string/microsoft_button"
         >
     </ImageButton>
 
     <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:id="@+id/btnGoogle"
         android:background="@drawable/googleicon"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -123,8 +128,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login"
         app:layout_constraintVertical_bias="0.379"
-        >
-    </ImageButton>
+        android:contentDescription="@string/google_button"
+        />
 
     <ImageView
         android:id="@+id/imageView"
@@ -136,19 +141,22 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569" />
+        app:layout_constraintVertical_bias="0.569"
+        android:contentDescription="@string/app_name"
+        />
 
     <TextView
         android:id="@+id/txtFogetPassword"
         android:layout_width="275dp"
-        android:layout_height="wrap_content"
-        android:textSize="19dp"
+        android:layout_height="48dp"
+        android:textSize="19sp"
         android:textStyle="bold"
         android:textColor="#D3D3D3"
-        android:text="Quên mật khẩu"
+        android:text="@string/forgot_password"
         android:fontFamily="serif"
         android:textAlignment="center"
         android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

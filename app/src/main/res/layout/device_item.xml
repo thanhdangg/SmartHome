@@ -2,12 +2,14 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="7dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
-    android:elevation="8dp">
+    android:elevation="8dp"
+    android:background="#70000000">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,23 +27,24 @@
                 android:id="@+id/ivDeviceIcon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10sp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_gravity="center"
                 android:src="@drawable/light"
-                android:contentDescription="device_icon"/>
+                android:contentDescription="@string/device_icon"/>
 
             <Switch
                 android:id="@+id/swDeviceStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:trackTint="@color/switch_track_tint"
                 android:thumbTint="@color/switch_thumb_tint"
-                android:scaleX="1.5"
-                android:scaleY="1.5"
+                android:scaleX="1.8"
+                android:scaleY="1.8"
+                tools:ignore="ExtraText,UseSwitchCompatOrMaterialXml"
                 >
             </Switch>
 
@@ -51,10 +54,10 @@
             android:id="@+id/tvDeviceName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Đèn trần"
+            android:text="@string/device_name"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:fontFamily="serif"
             />
 
@@ -62,9 +65,9 @@
             android:id="@+id/tvDeviceRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Phongf khách"
+            android:text="@string/device_room"
             android:textSize="16sp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="serif"
             />

@@ -11,9 +11,9 @@
         android:id="@+id/btnDangNhap"
         android:layout_width="224dp"
         android:layout_height="wrap_content"
-        android:text="Đăng nhập bằng tài khoản hiện có"
+        android:text="@string/btnDangNhap"
         android:fontFamily="serif"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:textStyle="bold"
         android:backgroundTint="#00BFFF"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,9 +25,9 @@
     <Button
         android:id="@+id/btnDangKy"
         android:layout_width="221dp"
-        android:layout_height="47dp"
-        android:text="Đăng ký tài khoản"
-        android:textSize="17dp"
+        android:layout_height="48dp"
+        android:text="@string/btnDangKy"
+        android:textSize="17sp"
         android:backgroundTint="#D3D3D3"
         android:fontFamily="serif"
         android:textStyle="bold"
@@ -47,7 +47,8 @@
         app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:contentDescription="@string/app_name"/>
 
     <ImageView
         android:id="@+id/imageView3"
@@ -60,5 +61,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.222" />
+        app:layout_constraintVertical_bias="0.222"
+        android:contentDescription="@string/app_name"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

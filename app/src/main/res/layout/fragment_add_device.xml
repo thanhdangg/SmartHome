@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="serif"
             android:gravity="center"
-            android:text="Chọn thiết bị để thêm"
+            android:text="@string/add_device"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -38,10 +38,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="20dp"
             android:fontFamily="serif"
-            android:text="Số seri thiết bị được in ở mặt sau của sản phẩm, vui lòng nhập đúng số seri để thêm thiết bị hoặc sử dụng chức năng quét mã QR để nhập tự động"
+            android:text="@string/context"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="12dp">
+            android:textSize="12sp">
 
         </TextView>
 
@@ -64,16 +64,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:fontFamily="serif"
-                android:text="Loại thiết bị: "
+                android:text="@string/type"
                 android:textColor="@color/black"
-                android:textSize="14dp">
+                android:textSize="14sp">
 
             </TextView>
 
             <Spinner
                 android:id="@+id/spinnerType"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="48dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
@@ -100,16 +100,14 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:fontFamily="serif"
-                android:text="Phòng: "
+                android:text="@string/room"
                 android:textColor="@color/black"
-                android:textSize="14dp">
-
-            </TextView>
+                android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/spinnerRoom"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="48dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
@@ -135,9 +133,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:fontFamily="serif"
-                android:text="Số seri thiết bị: "
+                android:text="@string/serial_number"
                 android:textColor="@color/black"
-                android:textSize="14dp">
+                android:textSize="14sp">
 
             </TextView>
 
@@ -147,23 +145,29 @@
                 android:orientation="horizontal"
                 >
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="10dp"
-                    android:hint="SAFETY CODE"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:hint="@string/serial_code"
                     android:maxLength="8"
+                    android:inputType="number"
+                    android:id="@+id/etSerialNumber"
+                    android:fontFamily="serif"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:autofillHints="phone"
                     >
                 </EditText>
 
                 <ImageView
                     android:id="@+id/btnScanQRCode"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/todo"
                     android:src="@drawable/scan"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
                     android:onClick="scanQRCode"
                     >
@@ -178,9 +182,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="Thêm thiết bị"
+            android:text="@string/btn_add"
             android:textColor="@color/white"
-            android:textSize="16dp"
+            android:textSize="16sp"
             android:onClick="addDevice"
             android:backgroundTint="#00BFFF"
             android:elevation="10dp"
