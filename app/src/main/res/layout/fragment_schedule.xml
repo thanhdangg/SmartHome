@@ -9,30 +9,58 @@
     >
 
     <Spinner
-        android:id="@+id/spinner_device_name"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:prompt="@string/select_device"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:textAlignment="center"
-        android:focusable="true"
-        />
-
-    <Spinner
         android:id="@+id/spinner_device_room"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:prompt="@string/select_room"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:textAlignment="center"
         android:focusable="true"
         />
+    <Spinner
+        android:id="@+id/spinner_device_name"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:prompt="@string/select_device"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="20dp"
+        android:textAlignment="center"
+        android:focusable="true"
+        />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:paddingStart="30dp"
+        >
+        <RadioButton
+            android:id="@+id/radio_on"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_on"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="serif"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            />
+        <RadioButton
+            android:id="@+id/radio_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_off"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="serif"
+            android:layout_gravity="center"
+            />
+    </RadioGroup>
 
     <TimePicker
         android:id="@+id/time_picker"
@@ -46,7 +74,6 @@
         android:layout_marginEnd="20dp"
         android:focusable="true"
         style="@style/CustomTimePickerTheme"
-
         />
 
     <Button
@@ -85,6 +112,4 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp">
     </androidx.recyclerview.widget.RecyclerView>
-
-
 </LinearLayout>
