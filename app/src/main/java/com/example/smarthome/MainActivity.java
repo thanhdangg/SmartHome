@@ -2,6 +2,7 @@ package com.example.smarthome;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +27,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import dev.gustavoavila.websocketclient.WebSocketClient;
@@ -41,8 +43,18 @@ public class MainActivity extends AppCompatActivity {
     private List<Device> devices;
     private Context context;
     private DeviceAdapter deviceAdapter;
-
-
+    private TextToSpeech textToSpeech;
+    private static final Map<String, String> COMMANDS_MAP = new HashMap<>();
+    static {
+        COMMANDS_MAP.put("BDPK", "Đã bật đèn phòng khách");
+        COMMANDS_MAP.put("TDPK", "Đã tắt đèn phòng khách");
+        COMMANDS_MAP.put("BDPN", "Đã bật đèn phòng ngủ");
+        COMMANDS_MAP.put("TDPN", "Đã tắt đèn phòng ngủ");
+        COMMANDS_MAP.put("BQPK", "Đã bật quạt phòng khách");
+        COMMANDS_MAP.put("TQPK", "Đã tắt quạt phòng khách");
+        COMMANDS_MAP.put("BQPN", "Đã bật quạt phòng ngủ");
+        COMMANDS_MAP.put("TQPN", "Đã tắt quạt phòng ngủ");
+    }
     private static final Map<String, String> DEVICE_TYPE_ABBREVIATIONS = new HashMap<>();
     private static final Map<String, String> ROOM_ABBREVIATIONS = new HashMap<>();
 
@@ -102,7 +114,29 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = textToSpeech.setLanguage(new Locale("vi", "VN"));
+                    if (result == TextToSpeech.LANG_MISSING_DATA ||
+                            result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("MainActivity", "Language not supported");
+                    }
+                } else {
+                    Log.e("MainActivity", "Initialization failed");
+                }
+            }
+        });
 
+    }
+    @Override
+    protected void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
     }
     private void getWebSocketUrlAndConnect() {
         webSocketUrlProvider.getWebSocketUrl(new Callback<WebSocketUrlResponse>() {
@@ -151,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                 if (fragment instanceof DeviceStatusUpdater) {
                     ((DeviceStatusUpdater) fragment).updateDeviceStatus(s);
                 }
+                handleCommand(s);
             }
             @Override
             public void onBinaryReceived(byte[] bytes) {
@@ -174,6 +209,19 @@ public class MainActivity extends AppCompatActivity {
         };
         mWebSocketClient.connect();
     }
+    private void handleCommand(String command) {
+        String message = COMMANDS_MAP.get(command);
+        if (message != null) {
+            speakText(message);
+        } else {
+            Log.d("MainActivity", "Unknown command received: " + command);
+        }
+    }
 
+    private void speakText(String text) {
+        if (textToSpeech != null) {
+            textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
+        }
+    }
 
 }

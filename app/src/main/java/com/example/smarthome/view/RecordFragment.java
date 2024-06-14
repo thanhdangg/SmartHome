@@ -125,11 +125,13 @@ public class RecordFragment extends Fragment {
             binding.imgRecord.setVisibility(View.INVISIBLE);
 
             Log.d("WebSocket", "Result: " + spokenText);
+            spokenText = spokenText.toLowerCase(Locale.ROOT);
+            Log.d("WebSocket", "spokenText: " + spokenText);
             String command = "";
             if (spokenText.contains("bật") || spokenText.contains("mở")) {
                 command = command.concat("B");
             } else if (spokenText.contains("tắt")) {
-                command = command.concat("B");
+                command = command.concat("T");
             } else {
                 binding.txtTryAgain.setVisibility(View.VISIBLE);
             }
