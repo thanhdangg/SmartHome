@@ -138,7 +138,7 @@ public class ScheduleFragment extends Fragment {
 
                 // Create a request
                 Request request = new Request.Builder()
-                        .url("http://3.25.190.4:1911/timer")
+                        .url("http://superbong.id.vn:1911/timer/create")
                         .post(body)
                         .build();
 

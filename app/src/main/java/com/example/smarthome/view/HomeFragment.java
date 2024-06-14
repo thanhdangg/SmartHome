@@ -68,12 +68,12 @@ public class HomeFragment extends Fragment implements DeviceStatusUpdater {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ListDeviceFragment deviceListFragment = new ListDeviceFragment();
+//        ListDeviceFragment deviceListFragment = new ListDeviceFragment();
         Bundle bundle = new Bundle();
-        deviceListFragment.setArguments(bundle);
+        listDeviceFragment.setArguments(bundle);
 
         getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.deviceListContainer, deviceListFragment)
+                .replace(R.id.deviceListContainer, listDeviceFragment)
                 .commit();
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -149,57 +149,12 @@ public class HomeFragment extends Fragment implements DeviceStatusUpdater {
                         .commit();
             }
         });
-        binding.tvAllDevices.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ListDeviceFragment deviceListFragment = new ListDeviceFragment();
+        binding.tvAllDevices.setOnClickListener(v -> updateDeviceList(null));
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.deviceListContainer, deviceListFragment)
-                        .commit();
-            }
-        });
-        binding.tvLivingRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ListDeviceFragment deviceListFragment = new ListDeviceFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("room", "Phòng khách");
-                deviceListFragment.setArguments(bundle);
+        binding.tvLivingRoom.setOnClickListener(v -> updateDeviceList("Phòng khách"));
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.deviceListContainer, deviceListFragment)
-                        .commit();
-            }
-        });
-        binding.tvBedRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ListDeviceFragment deviceListFragment = new ListDeviceFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("room", "Phòng ngủ");
-                deviceListFragment.setArguments(bundle);
+        binding.tvBedRoom.setOnClickListener(v -> updateDeviceList("Phòng ngủ"));
 
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.deviceListContainer, deviceListFragment)
-                        .commit();
-            }
-        });
-
-
-        binding.tvKitchen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ListDeviceFragment deviceListFragment = new ListDeviceFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("room", "Phòng bếp");
-                deviceListFragment.setArguments(bundle);
-
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.deviceListContainer, deviceListFragment)
-                        .commit();
-            }
-        });
 
         binding.btnAddDevice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,8 +168,24 @@ public class HomeFragment extends Fragment implements DeviceStatusUpdater {
 
 
     }
+    private void updateDeviceList(String room) {
+//        ListDeviceFragment deviceListFragment = new ListDeviceFragment();
+        listDeviceFragment = ListDeviceFragment.newInstance();
+
+        Bundle bundle = new Bundle();
+        if (room != null) {
+            bundle.putString("room", room);
+        }
+        listDeviceFragment.setArguments(bundle);
+
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.deviceListContainer, listDeviceFragment)
+                .commit();
+
+    }
     @Override
     public void updateDeviceStatus(String message) {
+        Log.d("HomeFragment", "listDeviceFragment: " +listDeviceFragment + " updateDeviceStatus: " + message);
         if (listDeviceFragment != null) {
             listDeviceFragment.updateDeviceStatus(message);
         }

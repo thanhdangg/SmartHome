@@ -1,4 +1,4 @@
-package com.example.smarthome.view;
+package com.example.smarthome.viewmodel;
 
 import com.google.gson.annotations.SerializedName;
 

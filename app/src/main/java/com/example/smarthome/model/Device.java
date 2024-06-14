@@ -1,5 +1,7 @@
 package com.example.smarthome.model;
 
+import android.util.Log;
+
 public class Device {
     private int id;
     private String iconPath;
@@ -70,6 +72,7 @@ public class Device {
 
     public void setStatus(boolean status) {
         this.status = status;
+        Log.d("DeviceAdapter", "Status: " + status + "device name: " + name + " room: " + room);
     }
 
     public String getRoom() {

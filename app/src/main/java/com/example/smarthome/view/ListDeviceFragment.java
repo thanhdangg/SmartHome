@@ -2,8 +2,11 @@ package com.example.smarthome.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +17,8 @@ import com.example.smarthome.databinding.FragmentListDeviceBinding;
 import com.example.smarthome.model.Device;
 import com.example.smarthome.viewmodel.DeviceAdapter;
 import com.example.smarthome.viewmodel.DeviceStatusUpdater;
+import com.example.smarthome.viewmodel.WebSocketUrlProvider;
+import com.example.smarthome.viewmodel.WebSocketUrlResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +34,8 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
     private WebSocketUrlProvider webSocketUrlProvider;
     String webSocketUrl = "";
     private DeviceAdapter deviceAdapter;
+    private List<Device> devices;
+    private DeviceAdapter adapter;
 
 
     public ListDeviceFragment() {
@@ -47,6 +54,10 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
         binding = FragmentListDeviceBinding.inflate(getLayoutInflater());
         webSocketUrlProvider = new WebSocketUrlProvider();
 
+        devices = new ArrayList<>();
+        // Initialize the adapter with an empty list of devices
+        adapter = new DeviceAdapter(devices, getContext());
+
     }
 
     @Override
@@ -55,7 +66,7 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
         binding = FragmentListDeviceBinding.inflate(inflater, container, false);
         binding.rvDevices.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        List<Device> devices = new ArrayList<>();
+//        List<Device> devices = new ArrayList<>();
         devices.add(new Device(1, "light", "Đèn trần", "Xiaomi Yelght", false, "Phòng khách"));
         devices.add(new Device(2, "lamp", "Đèn ngủ", "Xiaomi Fan", false, "Phòng ngủ"));
         devices.add(new Device(3, "ceilingfan", "Quạt trần", "Xiaomi", false, "Phòng khách"));
@@ -94,6 +105,41 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
 
         return binding.getRoot();
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
+        binding.rvDevices.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        binding.rvDevices.setAdapter(adapter);
+
+        // Load devices based on room from arguments
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            String room = bundle.getString("room");
+            loadDevices(room);
+        } else {
+            loadDevices(null);
+        }
+    }
+    private void loadDevices(String room) {
+        List<Device> filteredDevices = new ArrayList<>();
+        Log.d("ListDeviceFragment", "Room: " + room);
+        Log.d("ListDeviceFragment", "List Devices: " + devices);
+        for (Device device : devices) {
+            if (room == null || device.getRoom().equals(room)) {
+                filteredDevices.add(device);
+                Log.d("ListDeviceFragment", "Device: " + device.getName());
+            }
+        }
+        devices.clear();
+        devices.addAll(filteredDevices);
+//        adapter.notifyDataSetChanged();
+        adapter = new DeviceAdapter(devices, getContext(), webSocketUrl); // Update the adapter with the new list
+        binding.rvDevices.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     public void updateDeviceStatus(String message) {
         deviceAdapter.updateDeviceStatus(message);

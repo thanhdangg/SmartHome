@@ -1,13 +1,14 @@
-package com.example.smarthome.view;
+package com.example.smarthome.viewmodel;
+
+import com.example.smarthome.view.ApiService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WebSocketUrlProvider {
-    private static final String BASE_URL = "http://3.25.190.4:1911/";
+    private static final String BASE_URL = "http://superbong.id.vn:1911/wss/";
     private ApiService apiService;
 
     public WebSocketUrlProvider() {

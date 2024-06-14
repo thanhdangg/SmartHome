@@ -1,6 +1,5 @@
 package com.example.smarthome;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,8 +16,8 @@ import com.example.smarthome.model.Device;
 import com.example.smarthome.view.HomeFragment;
 import com.example.smarthome.view.RecordFragment;
 import com.example.smarthome.view.AutomaticFragment;
-import com.example.smarthome.view.WebSocketUrlProvider;
-import com.example.smarthome.view.WebSocketUrlResponse;
+import com.example.smarthome.viewmodel.WebSocketUrlProvider;
+import com.example.smarthome.viewmodel.WebSocketUrlResponse;
 import com.example.smarthome.viewmodel.DeviceAdapter;
 import com.example.smarthome.viewmodel.DeviceStatusUpdater;
 import com.example.smarthome.viewmodel.WebSocketManager;
@@ -38,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private WebSocketClient mWebSocketClient;
     private WebSocketUrlProvider webSocketUrlProvider;
+    private String webSocketUrl;
     private List<Device> devices;
     private Context context;
     private DeviceAdapter deviceAdapter;
@@ -63,10 +63,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        deviceAdapter = new DeviceAdapter(devices, this);
+//        deviceAdapter = new DeviceAdapter(devices, this);
+//        deviceAdapter = new DeviceAdapter(devices, this, mWebSocketClient);
 
         webSocketUrlProvider = new WebSocketUrlProvider();  // Initialize your WebSocketUrlProvider
         getWebSocketUrlAndConnect();
+        Log.d("MainActivity", "onCreate webSocketUrlProvider " + webSocketUrlProvider);
+//        deviceAdapter = new DeviceAdapter(devices, this, mWebSocketClient);
+//        deviceAdapter = new DeviceAdapter(devices, this, webSocketUrl, mWebSocketClient);
+//        Log.d("MainActivity", "onCreate deviceAdapter " + deviceAdapter);
+        deviceAdapter = new DeviceAdapter(devices, this);
+        Log.d("MainActivity", "onCreate deviceAdapter " + deviceAdapter);
+
 
         EdgeToEdge.enable(this);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -102,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<WebSocketUrlResponse> call, Response<WebSocketUrlResponse> response) {
                 if (response.isSuccessful()) {
                     String webSocketUrl = response.body().getWssUrl();
+                    Log.d("MainActivity", "WebSocket URL: " + webSocketUrl);
+                    webSocketUrl = response.body().getWssUrl();
                     connectWebSocket(webSocketUrl);
                 }
             }
@@ -128,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         Log.d("WebSocketClient", "Kết nối WebSocket thành công" + webSocketUrl);
+                        deviceAdapter = new DeviceAdapter(devices, context, webSocketUrl, mWebSocketClient);
+
                         WebSocketManager.getInstance().setWebSocketClient(mWebSocketClient);
                     }
                 });

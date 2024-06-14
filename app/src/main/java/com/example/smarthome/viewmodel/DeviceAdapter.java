@@ -52,6 +52,19 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
         this.webSocketUrl = webSocketUrl;
         mWebSocketClient = WebSocketManager.getInstance().getWebSocketClient();
     }
+    public DeviceAdapter(List<Device> devices, Context context, WebSocketClient webSocketClient) {
+        this.devices = devices;
+        this.context = context;
+        this.mWebSocketClient = webSocketClient;
+    }
+    public DeviceAdapter(List<Device> devices, Context context,String webSocketUrl, WebSocketClient webSocketClient) {
+        this.devices = devices;
+        this.context = context;
+        this.webSocketUrl = webSocketUrl;
+//        this.mWebSocketClient = webSocketClient;
+        this.mWebSocketClient = WebSocketManager.getInstance().getWebSocketClient();
+    }
+
     public class DeviceViewHolder extends RecyclerView.ViewHolder {
         public DeviceItemBinding binding;
         public DeviceViewHolder(DeviceItemBinding binding) {
@@ -69,7 +82,7 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
         Device device = devices.get(position);
         holder.binding.ivDeviceIcon.setImageResource(holder.itemView.getContext().getResources().getIdentifier(device.getIconPath(), "drawable", holder.itemView.getContext().getPackageName()));
         holder.binding.tvDeviceName.setText(device.getName());
-        holder.binding.swDeviceStatus.setOnCheckedChangeListener(null); // Remove existing listener
+        holder.binding.swDeviceStatus.setOnCheckedChangeListener(null);
         holder.binding.swDeviceStatus.setChecked(device.getStatus());
         holder.binding.tvDeviceRoom.setText(device.getRoom());
 
@@ -80,6 +93,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
                 String roomAbbreviation = ROOM_ABBREVIATIONS.get(device.getRoom());
                 String statusAbbreviation = isChecked ? "B" : "T";
                 String command = statusAbbreviation + deviceTypeAbbreviation + roomAbbreviation;
+                mWebSocketClient = WebSocketManager.getInstance().getWebSocketClient();
+
+                Log.d("DeviceAdapter", "mWebSocketClient: "+  mWebSocketClient + " command "+ command);
                 if (mWebSocketClient != null) {
                     if (deviceTypeAbbreviation != null && roomAbbreviation != null) {
                         mWebSocketClient.send(command);
@@ -88,13 +104,13 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
                 }
                 else{
                     Toast.makeText(holder.itemView.getContext(), "Không thể kết nối đến server", Toast.LENGTH_SHORT).show();
-                    if (isChecked) {
-                        Toast.makeText(holder.itemView.getContext(), device.getName() + " đã bật", Toast.LENGTH_SHORT).show();
-                        Log.d("DeviceAdapter", "onCheckedChanged: " + device.getName() + " đã bật");
-                    } else {
-                        Toast.makeText(holder.itemView.getContext(), device.getName() + " đã tắt", Toast.LENGTH_SHORT).show();
-                        Log.d("DeviceAdapter", "onCheckedChanged: " + device.getName() + " đã tatws");
-                    }
+//                    if (isChecked) {
+//                        Toast.makeText(holder.itemView.getContext(), device.getName() + " đã bật", Toast.LENGTH_SHORT).show();
+//                        Log.d("DeviceAdapter", "onCheckedChanged: " + device.getName() + " đã bật");
+//                    } else {
+//                        Toast.makeText(holder.itemView.getContext(), device.getName() + " đã tắt", Toast.LENGTH_SHORT).show();
+//                        Log.d("DeviceAdapter", "onCheckedChanged: " + device.getName() + " đã tatws");
+//                    }
                 }
             }
         });
@@ -104,24 +120,44 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
         return devices.size();
     }
     public void updateDeviceStatus(String message) {
+        Log.d("DeviceAdapter", "updateDeviceStatus: " + message);
         String statusAbbreviation = message.substring(0, 1);
         String deviceTypeAbbreviation = message.substring(1, 2);
         String roomAbbreviation = message.substring(2, 4);
 
-        boolean status = statusAbbreviation.equals("B");
+//        String room = roomAbbreviation.equals("PK") ? "Phòng khách" : "Phòng ngủ";
 
+        boolean status = statusAbbreviation.equals("B");
+        Log.d("DeviceAdapter", "statusAbbreviation: " + statusAbbreviation + " deviceTypeAbbreviation: " + deviceTypeAbbreviation + " roomAbbreviation: " + roomAbbreviation);
+
+//        for (Device device : devices) {
+//            String deviceType = DEVICE_TYPE_ABBREVIATIONS.get(device.getIconPath());
+////            String room = ROOM_ABBREVIATIONS.get(device.getRoom());
+//            String room = roomAbbreviation.equals("PK") ? "Phòng khách" : "Phòng ngủ";
+//
+//            if (deviceType != null && room != null) {
+//                Log.d("DeviceAdapter", "deviceType: " + deviceType + " room: " + room + "status: " + status);
+//
+//                device.setStatus(status);
+//                break;
+//            }
+//        }
         for (Device device : devices) {
             String deviceType = DEVICE_TYPE_ABBREVIATIONS.get(device.getIconPath());
             String room = ROOM_ABBREVIATIONS.get(device.getRoom());
-            if (deviceType != null && room != null && deviceType.equals(deviceTypeAbbreviation) && room.equals(roomAbbreviation)) {
-                device.setStatus(status);
-                break;
+
+            if (deviceType != null && room != null) {
+                if (deviceType.equals(deviceTypeAbbreviation) && room.equals(roomAbbreviation)) {
+                    Log.d("DeviceAdapter", "Updating device: " + device.getName() + " to status: " + status);
+                    device.setStatus(status);
+                    break;
+                }
             }
         }
-
         ((Activity) context).runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                Log.d("DeviceAdapter", "Updating UI");
                 notifyDataSetChanged();
             }
         });

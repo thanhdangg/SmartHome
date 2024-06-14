@@ -54,6 +54,7 @@ public class AutomaticFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mWebSocketClient = WebSocketManager.getInstance().getWebSocketClient();
+        Log.d("AutomaticFragment", "onViewCreated: " + mWebSocketClient);
         binding.lnTurnOnLightWhenOpenDoor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
