@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.smarthome.databinding.FragmentListDeviceBinding;
 import com.example.smarthome.model.Device;
 import com.example.smarthome.viewmodel.DeviceAdapter;
+import com.example.smarthome.viewmodel.DeviceStatusFetcher;
 import com.example.smarthome.viewmodel.DeviceStatusUpdater;
 import com.example.smarthome.viewmodel.WebSocketUrlProvider;
 import com.example.smarthome.viewmodel.WebSocketUrlResponse;
@@ -36,6 +37,8 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
     private DeviceAdapter deviceAdapter;
     private List<Device> devices;
     private DeviceAdapter adapter;
+    private DeviceStatusFetcher deviceStatusFetcher;
+
 
 
     public ListDeviceFragment() {
@@ -47,6 +50,9 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
         fragment.setArguments(args);
         return fragment;
     }
+    public DeviceStatusFetcher getDeviceStatusFetcher() {
+        return deviceStatusFetcher;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,8 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
         devices = new ArrayList<>();
         // Initialize the adapter with an empty list of devices
         adapter = new DeviceAdapter(devices, getContext());
+        deviceStatusFetcher = new DeviceStatusFetcher(deviceAdapter);
+
 
     }
 
@@ -65,6 +73,7 @@ public class ListDeviceFragment extends Fragment implements DeviceStatusUpdater 
                              Bundle savedInstanceState) {
         binding = FragmentListDeviceBinding.inflate(inflater, container, false);
         binding.rvDevices.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        deviceStatusFetcher = new DeviceStatusFetcher(adapter);
 
 //        List<Device> devices = new ArrayList<>();
         devices.add(new Device(1, "light", "Đèn trần", "Xiaomi Yelght", false, "Phòng khách"));

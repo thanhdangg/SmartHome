@@ -104,13 +104,6 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceAdapter.DeviceView
                 }
                 else{
                     Toast.makeText(holder.itemView.getContext(), "Không thể kết nối đến server", Toast.LENGTH_SHORT).show();
-//                    if (isChecked) {
-//                        Toast.makeText(holder.itemView.getContext(), device.getName() + " đã bật", Toast.LENGTH_SHORT).show();
-//                        Log.d("DeviceAdapter", "onCheckedChanged: " + device.getName() + " đã bật");
-//                    } else {
-//                        Toast.makeText(holder.itemView.getContext(), device.getName() + " đã tắt", Toast.LENGTH_SHORT).show();
-//                        Log.d("DeviceAdapter", "onCheckedChanged: " + device.getName() + " đã tatws");
-//                    }
                 }
             }
         });

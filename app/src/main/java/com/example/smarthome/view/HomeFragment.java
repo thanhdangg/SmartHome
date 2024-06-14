@@ -20,6 +20,7 @@ import com.example.smarthome.databinding.FragmentHomeBinding;
 
 import com.example.smarthome.model.OpenWeatherMapService;
 import com.example.smarthome.model.WeatherResponse;
+import com.example.smarthome.viewmodel.DeviceStatusFetcher;
 import com.example.smarthome.viewmodel.DeviceStatusUpdater;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.squareup.picasso.Picasso;
@@ -168,6 +169,13 @@ public class HomeFragment extends Fragment implements DeviceStatusUpdater {
 
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        listDeviceFragment.getDeviceStatusFetcher().fetchDeviceStatus();
+    }
+
     private void updateDeviceList(String room) {
 //        ListDeviceFragment deviceListFragment = new ListDeviceFragment();
         listDeviceFragment = ListDeviceFragment.newInstance();
