@@ -80,12 +80,23 @@ public class AutomaticFragment extends Fragment {
                 Toast.makeText(getContext().getApplicationContext(), "Đã tắt tất cả đèn", Toast.LENGTH_SHORT).show();
             }
         });
-        binding.lnTurnOnLightWhenMove.setOnClickListener(new View.OnClickListener() {
+        binding.lnTurnOnFan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext().getApplicationContext(), "Đã cài đặt, sẽ bật đèn khi có chuyển động", Toast.LENGTH_SHORT).show();
+                mWebSocketClient.send("BQPK");
+                mWebSocketClient.send("BQPN");
+                Toast.makeText(getContext().getApplicationContext(), "Đã bật quạt", Toast.LENGTH_SHORT).show();
             }
         });
+        binding.lnTurnOffFan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mWebSocketClient.send("TQPK");
+                mWebSocketClient.send("TQPN");
+                Toast.makeText(getContext().getApplicationContext(), "Đã tắt quạt", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         binding.lnLichTrinh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

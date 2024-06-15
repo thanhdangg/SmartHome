@@ -19,6 +19,7 @@ import com.example.smarthome.R;
 import com.example.smarthome.databinding.FragmentHomeBinding;
 
 import com.example.smarthome.model.OpenWeatherMapService;
+import com.example.smarthome.model.TemperatureHumidityUpdater;
 import com.example.smarthome.model.WeatherResponse;
 import com.example.smarthome.viewmodel.DeviceStatusFetcher;
 import com.example.smarthome.viewmodel.DeviceStatusUpdater;
@@ -34,7 +35,7 @@ import retrofit2.Call;
 
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeFragment extends Fragment implements DeviceStatusUpdater {
+public class HomeFragment extends Fragment implements DeviceStatusUpdater, TemperatureHumidityUpdater {
 
     private FragmentHomeBinding binding;
     private Retrofit retrofit;
@@ -168,6 +169,11 @@ public class HomeFragment extends Fragment implements DeviceStatusUpdater {
         });
 
 
+    }
+    @Override
+    public void updateTemperatureHumidity(String temperature, String humidity) {
+        binding.tvTempHome.setText(temperature+ "°C /");
+        binding.tvHumidityHome.setText(humidity+ "% /");
     }
 
     @Override

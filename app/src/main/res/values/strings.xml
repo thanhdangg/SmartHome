@@ -73,6 +73,8 @@
     <string name="schedule_list">Danh sách thiết bị đã lên lịch</string>
     <string name="time_on">Hẹn giờ bật</string>
     <string name="time_off">Hẹn giờ tắt</string>
+    <string name="turn_on_all_fan">Bật tât cả quạt</string>
+    <string name="turn_off_fan">Tắt tât cả quạt</string>
 
     <string-array name="device_types">
         <item>Đèn trần</item>

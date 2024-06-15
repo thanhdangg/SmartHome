@@ -5,12 +5,14 @@ public class Schedule {
     private String timeOn;
     private String timeOff;
     private String deviceRoom;
+    private int deviceStatus;
 
-    public Schedule(String deviceName, String timeOn, String timeOff, String deviceRoom) {
+    public Schedule(String deviceName, String timeOn, String timeOff, String deviceRoom, int deviceStatus) {
         this.deviceName = deviceName;
         this.timeOn = timeOn;
         this.timeOff = timeOff;
         this.deviceRoom = deviceRoom;
+        this.deviceStatus = deviceStatus;
     }
 
     public String getDeviceName() {
@@ -43,5 +45,13 @@ public class Schedule {
 
     public void setDeviceRoom(String deviceRoom) {
         this.deviceRoom = deviceRoom;
+    }
+
+    public int getDeviceStatus() {
+        return deviceStatus;
+    }
+
+    public void setDeviceStatus(int deviceStatus) {
+        this.deviceStatus = deviceStatus;
     }
 }

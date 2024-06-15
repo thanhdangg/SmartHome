@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -90,6 +91,57 @@ public class ScheduleFragment extends Fragment {
         ScheduleAdapter adapter = new ScheduleAdapter(getSchedules());
         binding.recyclerView.setAdapter(adapter);
 
+        OkHttpClient client = new OkHttpClient();
+
+        // Create a request
+        Request request = new Request.Builder()
+                .url("http://superbong.id.vn:1911/devices")
+                .build();
+
+        // Send the request
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    String responseBody = response.body().string();
+                    try {
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        Iterator<String> keys = jsonObject.keys();
+                        while (keys.hasNext()) {
+                            String key = keys.next();
+                            JSONObject deviceObject = jsonObject.getJSONObject(key);
+                            JSONObject timerObject = deviceObject.getJSONObject("timer");
+                            Iterator<String> timerKeys = timerObject.keys();
+                            while (timerKeys.hasNext()) {
+                                String time = timerKeys.next();
+                                int status = timerObject.getInt(time);
+                                String deviceName = key.substring(0, 1).equals("D") ? "Đèn" : "Quạt";
+                                String deviceRoom = key.substring(1).equals("PK") ? "Phòng khách" : "Phòng ngủ";
+                                String timeOn = status == 1 ? time : "";
+                                String timeOff = status == 0 ? time : "";
+                                Schedule schedule = new Schedule(deviceName, timeOn, timeOff, deviceRoom, status);
+                                scheduleList.add(schedule);
+                            }
+                        }
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ScheduleAdapter adapter = new ScheduleAdapter(scheduleList);
+                                binding.recyclerView.setAdapter(adapter);
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
         binding.btnSetSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,19 +155,23 @@ public class ScheduleFragment extends Fragment {
                 String timeOn = "";
                 String timeOff = "";
 
-
-//                @SuppressLint("DefaultLocale") String timeOn = String.format("%02d:%02d", hour, minute);
-//                @SuppressLint("DefaultLocale") String timeOff = String.format("%02d:%02d", hour + 1, minute);
-
                 int selectedId = binding.radioGroup.getCheckedRadioButtonId();
+                int status = 0;
                 if (selectedId == R.id.radio_on) {
                     timeOn = time;
+                    status = 1;
                 } else if (selectedId == R.id.radio_off) {
                     timeOff = time;
+                    status = 0;
                 }
-                Schedule schedule = new Schedule(deviceName, timeOn, timeOff, deviceRoom);
-                scheduleList.add(schedule);
-                adapter.notifyDataSetChanged();
+                Schedule schedule = new Schedule(deviceName, timeOn, timeOff, deviceRoom, status);
+                scheduleList.add(0, schedule);
+                ScheduleAdapter adapter = (ScheduleAdapter) binding.recyclerView.getAdapter();
+                if (adapter != null) {
+//                    adapter.notifyDataSetChanged();
+                    adapter.notifyItemInserted(0);
+                    binding.recyclerView.scrollToPosition(0);
+                }
 
                 OkHttpClient client = new OkHttpClient();
 
@@ -124,7 +180,7 @@ public class ScheduleFragment extends Fragment {
                     String deviceType = deviceName.equals("Đèn") ? "D" : "Q";
                     String deviceLocation = deviceRoom.equals("Phòng khách") ? "PK" : "PN";
                     String device = deviceType + deviceLocation;
-                    int status = selectedId == R.id.radio_on ? 1 : 0;
+//                    int status = selectedId == R.id.radio_on ? 1 : 0;
 
                     json.put("device", device);
                     json.put("time", time);

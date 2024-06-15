@@ -14,7 +14,7 @@
         android:layout_height="48dp"
         android:prompt="@string/select_room"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="20dp"
         android:textAlignment="center"
         android:focusable="true"
@@ -24,8 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:prompt="@string/select_device"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="20dp"
         android:textAlignment="center"
         android:focusable="true"
@@ -102,6 +102,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="serif"
         android:layout_marginStart="20dp"
+        android:textColor="@color/white"
         >
     </TextView>
     <androidx.recyclerview.widget.RecyclerView

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.smarthome.databinding.ActivityMainBinding;
 import com.example.smarthome.model.Device;
+import com.example.smarthome.model.TemperatureHumidityUpdater;
 import com.example.smarthome.view.HomeFragment;
 import com.example.smarthome.view.RecordFragment;
 import com.example.smarthome.view.AutomaticFragment;
@@ -184,6 +185,16 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
                 if (fragment instanceof DeviceStatusUpdater) {
                     ((DeviceStatusUpdater) fragment).updateDeviceStatus(s);
+                }
+                if (s.startsWith("infor:")) {
+                    String[] parts = s.substring(6).split("_");
+                    if (parts.length == 2) {
+                        String temp = parts[0];
+                        String humidity = parts[1];
+                        if (fragment instanceof TemperatureHumidityUpdater) {
+                            ((TemperatureHumidityUpdater) fragment).updateTemperatureHumidity(temp, humidity);
+                        }
+                    }
                 }
                 handleCommand(s);
             }
